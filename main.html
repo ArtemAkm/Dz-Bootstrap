@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>АдминПанель интернет-магазина</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/3.3.4/jquery.inputmask.bundle.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+        .error-message {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <ul class="nav nav-tabs" id="myTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#createProduct">Создание товара</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#createCategory">Создание категории товаров</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#createOrder">Создание заказа</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#sendEmail">Отправка сообщения по емейлу</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#sendSMS">Отправка СМС сообщения</a>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+            <div class="tab-pane fade show active" id="createProduct">
+                <form id="createProductForm">
+                    <div class="form-group">
+                        <label for="productName">Название товара</label>
+                        <input type="text" class="form-control" id="productName" name="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productPrice">Цена товара</label>
+                        <input type="number" class="form-control" id="productPrice" name="productPrice" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productDescription">Описание товара</label>
+                        <textarea class="form-control" id="productDescription" name="productDescription" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="productCategory">Категория товара</label>
+                        <input type="text" class="form-control" id="productCategory" name="productCategory" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productImage">Изображение товара</label>
+                        <input type="file" class="form-control" id="productImage" name="productImage" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Создать товар</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="createCategory">
+                <form id="createCategoryForm">
+                    <div class="form-group">
+                        <label for="categoryName">Название категории товаров</label>
+                        <input type="text" class="form-control" id="categoryName" name="categoryName" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Создать категорию</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="createOrder">
+                <form id="createOrderForm">
+                    <div class="form-group">
+                        <label for="customerName">Имя клиента</label>
+                        <input type="text" class="form-control" id="customerName" name="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="customerEmail">Email клиента</label>
+                        <input type="email" class="form-control" id="customerEmail" name="customerEmail" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="shippingAddress">Адрес доставки</label>
+                        <textarea class="form-control" id="shippingAddress" name="shippingAddress" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderItems">Товары в заказе</label>
+                        <input type="text" class="form-control" id="orderItems" name="orderItems" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="orderTotal">Общая стоимость заказа</label>
+                        <input type="number" class="form-control" id="orderTotal" name="orderTotal" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Создать заказ</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="sendEmail">
+                <form id="sendEmailForm">
+                    <div class="form-group">
+                        <label for="emailAddress">Email получателя</label>
+                        <input type="email" class="form-control" id="emailAddress" name="emailAddress" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="emailMessage">Сообщение</label>
+                        <textarea class="form-control" id="emailMessage" name="emailMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить email</button>
+                </form>
+            </div>
+            <div class="tab-pane fade" id="sendSMS">
+                <form id="sendSMSForm">
+                    <div class="form-group">
+                        <label for="phoneNumber">Номер телефона получателя</label>
+                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="smsMessage">Сообщение</label>
+                        <textarea class="form-control" id="smsMessage" name="smsMessage" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Отправить SMS</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    $(function () {
+        $('#createProductForm').submit(function (e) {
+            e.preventDefault();
+            var productName = $('#productName').val();
+            var productPrice = $('#productPrice').val();
+            var productDescription = $('#productDescription').val();
+            var productCategory = $('#productCategory').val();
+            var productImage = $('#productImage').val();
+
+            if (!productName || !productPrice || !productDescription || !productCategory || !productImage) {
+                alert('Пожалуйста, заполните все поля формы создания товара.');
+                return;
+            }
+
+
+            $('#productName').val('');
+            $('#productPrice').val('');
+            $('#productDescription').val('');
+            $('#productCategory').val('');
+            $('#productImage').val('');
+
+            alert('Товар успешно создан!');
+        });
+    });
+</script>
